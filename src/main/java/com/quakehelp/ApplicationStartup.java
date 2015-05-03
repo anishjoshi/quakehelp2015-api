@@ -18,8 +18,15 @@ public class ApplicationStartup {
 	}
 
 	public void getStartUpQuakeData() {
-		quakeData = QuakeHelpClient.getQuakeInfo();
-		System.out.println("Message::::" + quakeData.getError().getMessage());
+		try {
+			quakeData = QuakeHelpClient.getQuakeInfo();
+			System.out.println("Message::::"
+					+ quakeData.getError().getMessage());
+		} catch (IllegalArgumentException ex) {
+			System.out.println("Error Message" + ex.getMessage());
+			quakeData = new QuakeData();
+		}
+
 	}
 
 }

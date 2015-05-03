@@ -5,7 +5,7 @@ import java.util.List;
 public class QuakeInformation {
 
 	private Incident incident;
-	private List<Category> categories;
+	private List<CategoryData> categories;
 	private Object customfields;
 
 	public Incident getIncident() {
@@ -16,12 +16,12 @@ public class QuakeInformation {
 		this.incident = incident;
 	}
 
-	public List<Category> getCategories() {
+	public List<CategoryData> getCategories() {
 		return categories;
 	}
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
+	public void setCategories(List<CategoryData> categoryDatas) {
+		this.categories = categoryDatas;
 	}
 
 	public Object getCustomfields() {

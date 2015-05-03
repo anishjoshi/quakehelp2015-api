@@ -1,7 +1,6 @@
 package com.quakehelp.api.domain;
 
 public class Category {
-
 	private int id;
 	private String title;
 
