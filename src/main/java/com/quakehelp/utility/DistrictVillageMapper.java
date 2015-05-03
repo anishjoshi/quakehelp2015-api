@@ -57,10 +57,10 @@ public class DistrictVillageMapper {
 
 			logger.info("Setting village district map.");
 			for (String village : splitVillage) {
-				villageDistrictMap.put(village, file.getName());
+				villageDistrictMap.put(village.toLowerCase(), file.getName());
 			}
 			logger.info("Setting district map.");
-			districtMap.put(file.getName(), "1");
+			districtMap.put(file.getName().toLowerCase(), file.getName());
 		}
 	}
 }

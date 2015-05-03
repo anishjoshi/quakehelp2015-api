@@ -55,4 +55,18 @@ public class QuakeInformationController {
 
 		return quakeInfos;
 	}
+
+	@RequestMapping(method = RequestMethod.GET, params = "incidentId")
+	public List<QuakeInformation> getQuakeDataByIncident(
+			@RequestParam("incidentId") String incidentId) {
+		List<QuakeInformation> quakeInfos = new ArrayList<>();
+		for (QuakeInformation qi : ApplicationStartup.quakeData.getPayload()
+				.getIncidents()) {
+			if (qi.getIncident().getIncidentid().equals(incidentId)) {
+				quakeInfos.add(qi);
+			}
+		}
+		return quakeInfos;
+	}
+
 }
