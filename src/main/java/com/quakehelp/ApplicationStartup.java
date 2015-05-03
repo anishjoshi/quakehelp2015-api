@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 import com.quakehelp.api.domain.QuakeData;
 import com.quakehelp.client.QuakeHelpClient;
+import com.quakehelp.utility.DistrictVillageMapper;
 
 @Component
 public class ApplicationStartup {
@@ -15,6 +16,7 @@ public class ApplicationStartup {
 	@PostConstruct
 	public void init() {
 		this.getStartUpQuakeData();
+		new DistrictVillageMapper();
 	}
 
 	public void getStartUpQuakeData() {
