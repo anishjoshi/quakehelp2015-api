@@ -10,7 +10,7 @@ public class DistrictFinder {
 
 	public static String getDistrictName(String locationName, String latitude, String longitude) {
 		String response = DistrictFinder.getDristictNameFromMap(locationName);
-		if(response == "Unclassified"){
+		if(response.equals("Unclassified")){
 			try {
 				String jsonValue = CoordinateDecoder.sendGet(latitude, longitude);
 				
@@ -37,7 +37,7 @@ public class DistrictFinder {
 				.entrySet()) {
 			String key = entry.getKey();
 			String value = entry.getValue();
-			if (locationName.indexOf(key) > -1) {
+			if (locationName.toLowerCase().indexOf(key) > -1) {
 				flag = true;
 				return value;
 			}
@@ -48,7 +48,7 @@ public class DistrictFinder {
 					.entrySet()) {
 				String key = entry.getKey();
 				String value = entry.getValue();
-				if (locationName.indexOf(key) > -1) {
+				if (locationName.toLowerCase().indexOf(key) > -1) {
 					return value;
 				}
 			}
