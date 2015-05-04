@@ -1,7 +1,9 @@
 package com.quakehelp.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -20,15 +22,24 @@ import com.quakehelp.utility.PaginatedArrayList;
 public class QuakeInformationController {
 
 	@RequestMapping(method = RequestMethod.GET)
-	public QuakeData getQuakeData() {
-		return ApplicationStartup.quakeData;
+	public Map<String, List<QuakeInformation>> getQuakeData() {
+		Map<String, List<QuakeInformation>> quakeMap = new HashMap<>();
+		List<QuakeInformation> quakeInfos = new ArrayList<>();
+		quakeInfos = ApplicationStartup.quakeData.getPayload().getIncidents();
+		quakeMap.put("incidents", quakeInfos);
+		return quakeMap;
 	}
 
 	@RequestMapping(value = "page", method = RequestMethod.GET)
-	public List<Incident> getPaginatedQuakeData() {
+	public Map<String, List<QuakeInformation>> getPaginatedQuakeData() {
+		Map<String, List<QuakeInformation>> quakeMap = new HashMap<>();
+
+		List<QuakeInformation> quakeInfos = new ArrayList<>();
 		PaginatedArrayList pg = new PaginatedArrayList(
 				ApplicationStartup.quakeData.getPayload().getIncidents(), 10);
-		return pg.subList(1, 10);
+		quakeInfos = pg.subList(1, 10);
+		quakeMap.put("incidents", quakeInfos);
+		return quakeMap;
 	}
 
 	/***
@@ -40,8 +51,11 @@ public class QuakeInformationController {
 	 */
 
 	@RequestMapping(method = RequestMethod.GET, params = "categoryId")
-	public List<QuakeInformation> getQuakeDataByCategory(
+	public Map<String, List<QuakeInformation>> getQuakeDataByCategory(
 			@RequestParam("categoryId") int categoryId) {
+
+		Map<String, List<QuakeInformation>> quakeMap = new HashMap<>();
+
 		List<QuakeInformation> quakeInfos = new ArrayList<>();
 		for (QuakeInformation qi : ApplicationStartup.quakeData.getPayload()
 				.getIncidents()) {
@@ -52,13 +66,14 @@ public class QuakeInformationController {
 				}
 			}
 		}
-
-		return quakeInfos;
+		quakeMap.put("incidents", quakeInfos);
+		return quakeMap;
 	}
 
 	@RequestMapping(method = RequestMethod.GET, params = "incidentId")
-	public List<QuakeInformation> getQuakeDataByIncident(
+	public Map<String, List<QuakeInformation>> getQuakeDataByIncident(
 			@RequestParam("incidentId") String incidentId) {
+		Map<String, List<QuakeInformation>> quakeMap = new HashMap<>();
 		List<QuakeInformation> quakeInfos = new ArrayList<>();
 		for (QuakeInformation qi : ApplicationStartup.quakeData.getPayload()
 				.getIncidents()) {
@@ -66,7 +81,8 @@ public class QuakeInformationController {
 				quakeInfos.add(qi);
 			}
 		}
-		return quakeInfos;
+		quakeMap.put("incidents", quakeInfos);
+		return quakeMap;
 	}
 
 }

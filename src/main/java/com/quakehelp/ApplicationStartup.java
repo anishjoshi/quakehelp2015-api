@@ -28,21 +28,23 @@ public class ApplicationStartup {
 	public void getStartUpQuakeData() {
 		try {
 			quakeData = QuakeHelpClient.getQuakeInfo();
+			if (quakeData != null) {
+				for (int i = 0; i < quakeData.getPayload().getIncidents()
+						.size(); i++) {
+					quakeData
+							.getPayload()
+							.getIncidents()
+							.get(i)
+							.getIncident()
+							.setDistrict(
+									DistrictFinder.getDistrictName(quakeData
+											.getPayload().getIncidents().get(i)
+											.getIncident().getLocationname()
+											.toLowerCase()));
+				}
 
-			for (int i = 0; i < quakeData.getPayload().getIncidents().size(); i++) {
-				quakeData
-						.getPayload()
-						.getIncidents()
-						.get(i)
-						.getIncident()
-						.setDistrict(
-								DistrictFinder.getDistrictName(quakeData
-										.getPayload().getIncidents().get(i)
-										.getIncident().getLocationname()
-										.toLowerCase()));
+				logger.info("Message::::" + quakeData.getError().getMessage());
 			}
-
-			logger.info("Message::::" + quakeData.getError().getMessage());
 		} catch (IllegalArgumentException ex) {
 			logger.info("Error Message" + ex.getMessage());
 			quakeData = new QuakeData();
