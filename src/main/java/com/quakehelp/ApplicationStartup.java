@@ -39,7 +39,11 @@ public class ApplicationStartup {
 								DistrictFinder.getDistrictName(quakeData
 										.getPayload().getIncidents().get(i)
 										.getIncident().getLocationname()
-										.toLowerCase()));
+										.toLowerCase(), quakeData
+										.getPayload().getIncidents().get(i)
+										.getIncident().getLocationlatitude(),  quakeData
+										.getPayload().getIncidents().get(i)
+										.getIncident().getLocationlongitude()));
 			}
 
 			logger.info("Message::::" + quakeData.getError().getMessage());
