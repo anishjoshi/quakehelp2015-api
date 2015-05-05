@@ -5,14 +5,20 @@ import java.util.Map;
 
 import org.json.simple.JSONArray;
 import org.json.simple.parser.JSONParser;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DistrictFinder {
 
-	public static String getDistrictName(String locationName, String latitude, String longitude) {
-		String response = DistrictFinder.getDristictNameFromMap(locationName);
+	@Autowired
+	private CoordinateDecoder coordinateDecoder;
+	
+	public String getDistrictName(String locationName, String latitude, String longitude) {
+		String response = getDristictNameFromMap(locationName);
 		if(response.equals("Unclassified")){
 			try {
-				String jsonValue = CoordinateDecoder.sendGet(latitude, longitude);
+				String jsonValue = coordinateDecoder.sendGet(latitude, longitude);
 				
 				JSONParser parser=new JSONParser();
 				Object obj = parser.parse(jsonValue);
@@ -20,7 +26,7 @@ public class DistrictFinder {
 		        HashMap<String,Object> obj1 = (HashMap<String, Object>) array.get(0);
 		        String displayName = obj1.get("display_name").toString();
 		        
-		        response = DistrictFinder.getDristictNameFromMap(displayName);
+		        response = getDristictNameFromMap(displayName);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -30,7 +36,7 @@ public class DistrictFinder {
 		return response;
 	}
 	
-	public static String getDristictNameFromMap(String locationName){
+	public String getDristictNameFromMap(String locationName){
 		boolean flag = false;
 
 		for (Map.Entry<String, String> entry : DistrictVillageMapper.districtMap

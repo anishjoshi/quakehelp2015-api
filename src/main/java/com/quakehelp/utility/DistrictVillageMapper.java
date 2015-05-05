@@ -11,8 +11,14 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DistrictVillageMapper {
+	
+	@Autowired
+	private FileFolderUtils fileFolderUtils;
 	
 	BufferedReader br = null;
 	String villages = null;	
@@ -21,7 +27,7 @@ public class DistrictVillageMapper {
 	static HashMap<String, String> districtMap = new HashMap<String, String>();
 	Logger logger = LoggerFactory.getLogger(DistrictVillageMapper.class);
 	
-	public DistrictVillageMapper() {
+	public void mapDistrictVillage() {
 		URL checkUrl = DistrictVillageMapper.class.getResource("/districts");
 		File path = null;
 		try {
@@ -29,7 +35,7 @@ public class DistrictVillageMapper {
 		} catch (URISyntaxException e) {
 			e.printStackTrace();
 		}
-		districts = FileFolderUtils.getAllFiles(path.getAbsolutePath());
+		districts = fileFolderUtils.getAllFiles(path.getAbsolutePath());
 		
 		for (File file : districts) {
 			try {

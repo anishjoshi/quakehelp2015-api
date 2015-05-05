@@ -8,10 +8,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+import org.springframework.stereotype.Component;
+
 /**
  * @author prayas
  * Using openstreetmap api this class sends information according to what we need
  */
+@Component
 public class CoordinateDecoder {
 	/**
 	 * This function takes latitude and longtitude, then calls the openstreetmap api to get information and sends the json
@@ -21,7 +24,7 @@ public class CoordinateDecoder {
 	 * @return
 	 * @throws Exception
 	 */
-	public static String sendGet(String latitude, String longitude) throws Exception {
+	public String sendGet(String latitude, String longitude) throws Exception {
 		 
 		String url = "https://nominatim.openstreetmap.org/search?q="+latitude+"%2C"+longitude+"&format=json";
  

@@ -6,12 +6,12 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.stereotype.Component;
+
+@Component
 public class FileFolderUtils {
-
 	
-
-	
-	public static void createFolder(String folder) {
+	public void createFolder(String folder) {
 
 		File file = new File(folder);
 		if (file.exists()) {
@@ -28,7 +28,7 @@ public class FileFolderUtils {
 	 * This method returns list of only files in a directory Doesn't return
 	 * directories
 	 */
-	public static List<File> getAllFiles(String inputDir) {
+	public List<File> getAllFiles(String inputDir) {
 
 		List<File> onlyFiles = new ArrayList<File>();
 		File curDirOrFiles = new File(inputDir);
@@ -46,7 +46,7 @@ public class FileFolderUtils {
 
 	}
 
-	public static List<File> getAllDirectories(String inputDir) {
+	public List<File> getAllDirectories(String inputDir) {
 
 		List<File> onlyDirectories = new ArrayList<File>();
 		File clientFolder = new File(inputDir);
@@ -65,7 +65,7 @@ public class FileFolderUtils {
 	/**
 	 * This method writes the list of String into file specified
 	 */
-	public static void writeToFile(List<String> lines, String fileName) {
+	public void writeToFile(List<String> lines, String fileName) {
 
 		try {
 			FileWriter fstream = new FileWriter(fileName);

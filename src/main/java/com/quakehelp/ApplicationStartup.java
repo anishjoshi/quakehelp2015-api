@@ -4,6 +4,7 @@ import javax.annotation.PostConstruct;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.quakehelp.api.domain.QuakeData;
@@ -17,10 +18,15 @@ public class ApplicationStartup {
 	Logger logger = LoggerFactory.getLogger(ApplicationStartup.class);
 
 	public static QuakeData quakeData;
+	
+	@Autowired
+	private DistrictVillageMapper districtVillageMapper;
+	@Autowired
+	private DistrictFinder districtFinder;
 
 	@PostConstruct
 	public void init() {
-		new DistrictVillageMapper();
+		districtVillageMapper.mapDistrictVillage();
 		this.getStartUpQuakeData();
 
 	}
@@ -37,7 +43,7 @@ public class ApplicationStartup {
 							.get(i)
 							.getIncident()
 							.setDistrict(
-									DistrictFinder.getDistrictName(quakeData
+									districtFinder.getDistrictName(quakeData
 											.getPayload().getIncidents().get(i)
 											.getIncident().getLocationname()
 											.toLowerCase(), quakeData
