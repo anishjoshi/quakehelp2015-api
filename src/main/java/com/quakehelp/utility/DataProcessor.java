@@ -12,7 +12,7 @@ public class DataProcessor {
 	@Autowired
 	private ApplicationStartup applicationStartup;
 
-	@Scheduled(cron = "0 0/10 * * * ?")
+	@Scheduled(cron = "0 0/50 * * * ?")
 	public void syncQuakeData() {
 		System.out.println("scheduler");
 		applicationStartup.getStartUpQuakeData();

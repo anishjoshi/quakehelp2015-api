@@ -3,6 +3,10 @@ package com.quakehelp.api.domain;
 public class QuakeData {
 	private Payload payload;
 
+	public QuakeData() {
+		this.payload = new Payload();
+	}
+
 	public Payload getPayload() {
 		return payload;
 	}
